@@ -1,4 +1,6 @@
 Big Long Now
+
+
 "I'm still waiting for something that will never come."
 I was fifteen when I first heard Nirvana on my older brother's cassette player. I didn't sleep that night. I just sat there in the dark replaying it over and over and over until the tape started warping. That was 1991. I didn't know then that I was hearing the last gasp of something real before the world swallowed it whole.
 
