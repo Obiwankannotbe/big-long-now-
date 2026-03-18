@@ -1,100 +1,16 @@
-# Nirvana CTF — "Something in the Way"
+Big Long Now
+"I'm still waiting for something that will never come."
+I was fifteen when I first heard Nirvana on my older brother's cassette player. I didn't sleep that night. I just sat there in the dark replaying it over and over and over until the tape started warping. That was 1991. I didn't know then that I was hearing the last gasp of something real before the world swallowed it whole.
 
-A blind boolean-based SQL injection challenge disguised as a Nirvana fan page.
+When Kurt died in April 1994 I didn't go to school for two weeks. My mum thought I was sick. I wasn't sick. I was grieving something she couldn't understand, and I didn't have the words to explain it to her. How do you tell someone that the one person who made you feel like being weird and broken and too-much was okay and that that person is just gone now? You don't. You just sit in your room, and you play In Utero until your ears bleed and you try to figure out how to exist in a world that didn't deserve him anyway.
 
----
+I built this site in 2009. Fifteen years after he died and I was still not over it. I don't think I ever will be. Three hundred and twelve entries. Every track, every B-side, every bootleg recording I could find, every note I'd ever written about why this band mattered more than anything else ever put to tape. It took me four years to build it properly. Four years of evenings and weekends and skipped dinners and my girlfriends at the time telling me I cared more about a dead musician than I did about them. They weren’t wrong. I'm not proud of that.
 
-## Challenge Info
+Last Tuesday I opened it up and it was just gone.
+I've been sitting here for six days now just staring at the same screen. It's still running. The server is still up, the database is still there humming away like nothing happened, like it doesn't know what it took from me. Every song wiped. Every entry stripped. Every page reduced to nothing. Three hundred and twelve things I spent four years building and one of them — just one, I don't know how, I don't know why it’s still there. Big Long Now. This quiet slow aching track from Incesticide that most people skip right past without even noticing. The one that goes nowhere and takes forever to get there and somehow says everything Kurt ever felt without a single word that makes obvious sense. That one survived. Out of three hundred and twelve. That one.
 
-- **Category**: Web Exploitation
-- **Difficulty**: Medium
-- **Flag**: `CTF{k0me_as_you_4re!!}`
-- **Hint**: *"Colorblind — Nirvana"*
+I keep thinking there's something in that. Probably there isn't. Probably I'm just sleep deprived and looking for meaning in a hard drive failure like I looked for meaning in everything else he left behind. That's what you do when someone takes something from you that you never got to finish grieving. You find patterns in the wreckage. You convince yourself the one thing still standing is standing for a reason.
 
----
+I just want back in. That's all. My credentials got changed in whatever happened and I can't reach the panel anymore. Somewhere in what's left of that database is everything I need — I know it's still in there, I can feel it, it didn't all go — I just can't get to it the normal way anymore. If you can find a way in, any way in, I'll be here. I'm not going anywhere. 
 
-## Setup
-
-### 1. Install dependencies
-
-```bash
-pip install flask
-```
-
-### 2. Create the database
-
-```bash
-python setup_db.py
-```
-
-This creates `nirvana.db` (SQLite) with:
-- `songs` table — the searchable discography
-- `admin` table — contains the flag password
-
-### 3. Run the app
-
-```bash
-python app.py
-```
-
-Visit: `http://localhost:5000`
-
----
-
-## File Structure
-
-```
-nirvana-ctf/
-├── app.py          # Flask app (vulnerable backend)
-├── setup_db.py     # DB creation + seeding script
-├── nirvana.db      # Generated SQLite database (after setup)
-├── README.md
-└── templates/
-    ├── index.html  # Fan page with search + oracle word
-    ├── admin.html  # Login page
-    └── flag.html   # Flag display (post-login)
-```
-
----
-
-## Vulnerability Details
-
-**Injection point**: `GET /search?q=<input>`
-
-The search query is interpolated directly into SQL:
-```python
-f"SELECT * FROM songs WHERE title LIKE '%{q}%'"
-```
-
-**Oracle**: The word `colour` (British) vs `color` (American) in the page blurb.
-- Query returns rows → `colour` → **TRUE**
-- Query returns nothing → `color` → **FALSE**
-
-**Escape the LIKE clause**:
-```
-%' AND SUBSTRING(password,1,1)='a'-- -
-```
-
----
-
-## Intended Solve (Burp Suite)
-
-1. Search anything, intercept in **Proxy**, send to **Repeater**
-2. Confirm injection: `%' AND 1=1-- -` → `colour`, `%' AND 1=2-- -` → `color`
-3. Send to **Intruder**, payload position on the character:
-   ```
-   q=%' AND SUBSTRING(password,§1§,1)='§a§'-- -
-   ```
-   *(Use Cluster Bomb — position 1 iterates 1–20, position 2 iterates charset)*
-4. **Options → Grep Match** → add `colour`
-5. Hits with checkmark = correct character
-6. Assemble the 20-char password, log in at `/admin`
-
----
-
-## Notes for CTF Organisers
-
-- The `/admin` route is intentionally not linked anywhere on the page
-- No `robots.txt`, no HTML comments, no other hints — SQLi is the only path
-- Change the flag password in `setup_db.py` before deploying
-- Run with `debug=False` in production (already set in app.py)
+The front door is locked and I've lost the key and I'm standing outside my own house in the rain or something, quite dramatic, aren’t I?
