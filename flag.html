@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Flag — Nirvana Tribute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0d0d0d;
+      color: #ccc;
+      font-family: 'Courier Prime', monospace;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem;
+    }
+    .label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #555;
+    }
+    .flag-box {
+      border: 1px solid #c8a951;
+      padding: 1.2rem 2rem;
+      font-family: 'Special Elite', cursive;
+      font-size: clamp(1rem, 4vw, 1.6rem);
+      color: #c8a951;
+      letter-spacing: 0.1em;
+      text-align: center;
+      background: rgba(200,169,81,0.05);
+      box-shadow: 0 0 40px rgba(200,169,81,0.08);
+      animation: glow 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 20px rgba(200,169,81,0.06); }
+      to   { box-shadow: 0 0 50px rgba(200,169,81,0.18); }
+    }
+    .congrats {
+      font-size: 0.82rem;
+      color: #555;
+      letter-spacing: 0.1em;
+      text-align: center;
+      max-width: 420px;
+      line-height: 1.8;
+    }
+    a {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #444;
+      text-decoration: none;
+      margin-top: 0.5rem;
+    }
+    a:hover { color: #c8a951; }
+  </style>
+</head>
+<body>
+  <div class="label">Challenge Complete</div>
+
+  <div class="flag-box">NFSUB{youfoundflag}</div>
+
+  <div class="congrats">
+    You extracted the password character by character and found your way in.<br/>
+    Just like Kurt said — come as you are.
+  </div>
+
+  <a href="/logout">← Logout</a>
+</body>
+</html>
